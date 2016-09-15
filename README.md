@@ -4,7 +4,7 @@
 Install with npm
 
 ```sh
-npm install classnames --save
+npm install hexgridr --save
 ```
 
 Use with node.js
