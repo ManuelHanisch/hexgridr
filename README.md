@@ -1,8 +1,13 @@
-hexgridr
+![GitHub Logo](icon.png) hexgridr
 ===========
 
-under construction
+Install with npm
 
+```sh
+npm install classnames --save
+```
+
+Use with node.js
 
 ```js
 var HexGrid = require('hexgridr');
@@ -12,4 +17,4 @@ var hg = new HexGrid(hexCount).build(); // hexCount = number of Hexes
 ```
 
 
-under construction
+more info coming soon..under construction.

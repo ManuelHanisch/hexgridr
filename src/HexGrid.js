@@ -1,5 +1,5 @@
 
-var Hex = require('./Hex.js');
+var Hex = require('./Hex');
 
 /**
  * Hexagonal Grid Functions, with Axial Storage and Cubic Representation
@@ -30,13 +30,6 @@ var Hex = require('./Hex.js');
 
 
 
-	// HexGrid.prototype.createPositionRect = function(hexWidth, hexHeight, pivotPoint = 'center') {
-	//
-	// 	var positionMap = {
-	// 		width: (this.horizontalRange * hexWidth) + hexWidth,
-	// 		height: (this.verticalRange * hexHeight) + hexHeight,
-	// 		map: []
-	// 	};
   HexGrid.prototype.build = function (layout = 'hexagon', direction = 'c-clock', startPoint = 'sw') {
 
 		var result = {
