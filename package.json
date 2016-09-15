@@ -1,6 +1,6 @@
 {
   "name": "hexgridr",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A library for creating and working with hexagonal grids. Supports pointy-top and flat-top orientations plus multiple grid layouts.",
   "main": "index.js",
   "repository": {

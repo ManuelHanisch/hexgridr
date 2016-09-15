@@ -1,4 +1,4 @@
-![GitHub Logo](icon.png) hexgridr
+![GitHub Logo](icon_48.png) hexgridr
 ===========
 
 Install with npm
