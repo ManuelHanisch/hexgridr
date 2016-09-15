@@ -17,4 +17,4 @@ var hg = new HexGrid(hexCount).build(); // hexCount = number of Hexes
 ```
 
 
-more info coming soon..under construction.
+ more info coming soon..under construction.
