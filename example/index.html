@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>hexgridr Example</title>
+
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+
+    create a HexGrid with <input type="input" id="i_hexes" maxlength="3" style="width:48px;boeder:1px solid green" /> Hexes.<br />
+    Orientation: pointy-top. <br />
+    Layout: hexagonal, adding Hexes counter-clockwise, starting bottom-left. <br />
+    <input type="button" value="go" onclick="createHexGrid();return false;"  />
+
+    <div id="stage" style="width:1024px;height:1024px;border:1px solid blue"></div>
+
+
+    <script>
+
+    function createHexGrid() {
+
+
+      var hexes = document.getElementById('i_hexes').value;
+
+
+
+
+      document.getElementById('stage').innerHTML(hexes);
+
+    }
+
+
+
+
+    </script>
+
+
+ </body>
+</html>
