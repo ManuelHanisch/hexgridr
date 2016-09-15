@@ -1,2 +1,5 @@
 # Atom Remote-FTP config files
 .ftpconfig
+
+# bundled file in example folder
+example/bundle.js
