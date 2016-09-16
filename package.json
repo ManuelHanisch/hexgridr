@@ -8,7 +8,11 @@
     "url": "https://github.com/ManuelHanisch/hexgridr"
   },
   "scripts": {
-    "exampleBuild": "browserify lib/HexGrid.js > example/bundle.js"
+    "makeSA:Hex": "browserify lib/Hex.js --standalone Hex > example/hex-sa-bundle.js",
+    "makeSA:HexGrid": "browserify lib/HexGrid.js --standalone HexGrid > example/hexgrid-sa-bundle.js",
+
+    "buildExample": "npm run makeSA:HexGrid && npm run makeSA:Hex",
+    "build": "browserify lib/HexGrid.js  > dist/bundle.js"
   },
   "keywords": [
     "hexagonal",

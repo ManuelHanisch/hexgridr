@@ -1,39 +1,97 @@
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>hexgridr Example</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="bundle.js"></script>
-  </head>
-  <body>
+  <title>hexgridr Example</title>
 
-    create a HexGrid with <input type="input" id="i_hexes" maxlength="3" style="width:48px;boeder:1px solid green" /> Hexes.<br />
-    Orientation: pointy-top. <br />
-    Layout: hexagonal, adding Hexes counter-clockwise, starting bottom-left. <br />
-    <input type="button" value="go" onclick="createHexGrid();return false;"  />
+  <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js" integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=" crossorigin="anonymous"></script>
+  <script src="hex-sa-bundle.js"></script>
+  <script src="hexgrid-sa-bundle.js"></script>
+  <script src="example.js"></script>
 
-    <div id="stage" style="width:1024px;height:1024px;border:1px solid blue"></div>
-
-
-    <script>
-
-    function createHexGrid() {
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha256-j+P6EZJVrbXgwSR5Mx+eCS6FvP9Wq27MBRC/ogVriY0=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="example.css">
 
 
-      var hexes = document.getElementById('i_hexes').value;
+</head>
+<body>
+
+  <div class="pure-g">
+    <div class="pure-u-2-5" style="min-width:400px;">
+      <div class="l-box">
+        <p>
+
+          <h4 class="content-subhead">Input for creating a Hexgrid:</h4>
+
+          <form class="pure-form pure-form-aligned">
+            <fieldset>
+              <div class="pure-control-group">
+                <label for="hg_sel_hexnum">Number of Hexes:</label>
+                <input id="hg_sel_hexnum" type="text" style="width:64px" value="20">
+              </div>
+
+              <div class="pure-control-group">
+                <label for="hg_sel_orientation">Orientation</label>
+                <select id="hg_sel_orientation">
+                  <option selected="selected">Pointy-top</option>
+                  <option>Flat-top</option>
+                </select>
+              </div>
+
+              <h4 class="content-subhead">Input for building the the Hexgrid:</h4>
+
+              <div class="pure-control-group">
+                <label for="hg_sel_layout">Layout</label>
+                <select id="hg_sel_layout">
+                  <option selected="selected">Hexagonal</option>
+                  <option>Rectangle</option>
+                </select>
+              </div>
+
+              <div class="pure-control-group">
+                <label for="hg_sel_direction">Build-Direction</label>
+                <select id="hg_sel_direction">
+                  <option selected="selected">counter-clockwise</option>
+                  <option>clockwise</option>
+                </select>
+              </div>
+
+              <div class="pure-control-group">
+                <label for="hg_sel_startingpoint">Build-Direction starting-point</label>
+                <select id="hg_sel_startingpoint">
+                  <option selected="selected">SW (south-west)</option>
+                  <option>SE (south-east)</option>
+                  <option>NE (north-east)</option>
+                  <option>NW (north-west)</option>
+                </select>
+              </div>
+
+              <div class="pure-controls">
+                <input type="button" id="hg_sel_createBtn" class="button-secondary pure-button" value="Create and Build" />
+              </div>
+
+            </fieldset>
+          </form>
 
 
 
+        </p>
+      </div>
+    </div>
+    <div class="pure-u-3-5">
+      <div class="l-box" style="overflow-x:visible;">
+        <p>
+          <h4 class="content-subhead">Code used:</h4>
+          <code id="hg_code_build" class="code"></code>
 
-      document.getElementById('stage').innerHTML(hexes);
+          <h4 class="content-subhead">Result:</h4>
+          <div id="hg_stage" style="position:relative;width:512px;height:512px;border:1px solid rgb(66, 184, 221);overflow:hidden"></div>
+        </p>
+      </div>
+    </div>
+  </div>
 
-    }
-
-
-
-
-    </script>
-
-
- </body>
+</body>
 </html>
