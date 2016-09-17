@@ -9,87 +9,87 @@ $(function() {
 
   $("#hg_sel_createBtn").click(function() { hg_createHexGrid() });
 
+  var hg_imgInfo_pointytop = {
+    name: 'hex_pointy_56_64.png',
+    width: 56,
+    height: 64
+  }
+  var hg_imgInfo_flattop = {
+    name: 'hex_flat_64_56.png',
+    width: 64,
+    height: 56
+  }
+  //preloading images
+  $("#hg_preloadimg_pointytop").css('backgroundImage','url('+hg_imgInfo_pointytop.name+')');
+  $("#hg_preloadimg_flattop").css('backgroundImage','url('+hg_imgInfo_flattop.name+')');
+
+
   function hg_createHexGrid() {
 
     var input = getInput();
     var hg = new HexGrid(input.hexnum,input.orientation);
-    // hg.build(input.layout,input.direction,input.startingpoint);
-    hg.build();
-
-    hg_drawGrid(hg);
-
+    hg.build(input.layout);
+    hg_drawGrid(hg,input.orientation);
 
   }
 
-  function hg_drawGrid(hg) {
+
+  function hg_drawGrid(hg, orientation) {
 
     var startX = 223;
     var startY = 224;
-    var imgInfo = {
-      name: 'hex_56_64.png',
-      width: 56,
-      height: 64
-    }
 
-    var tmp_positions = [];
-
-    hg.grid.hexes.forEach(function(hexy) {
-
-      var pp = hexy.getPixelPosition(imgInfo.width, imgInfo.height, startX, startY);
-
-      tmp_positions.push({
-        posX: pp.x,
-        posY: pp.y
-      });
-
-    });
-
-
+    hg_updateCodeResult(hg);
     $('#hg_stage').empty();
 
 
-
-    console.log(tmp_positions);
-
     var i = -1;
     (function loop(){
-      if (++i >= tmp_positions.length) return;
+      if (++i >= hg.grid.hexes.length) return;
       setTimeout(function(){
-        hg_drawHex(tmp_positions[i].posX,tmp_positions[i].posY,i,imgInfo);
+        hg_drawHex(hg.grid.hexes[i],i,startX,startY,orientation);
         loop();
-      }, 200);
+      }, 100);
     })();
 
   }
 
-  function hg_drawHex(posX,posY,someId,imgInfo) {
+
+  function hg_drawHex(hexy,someId,offsetX,offsetY,orientation) {
+
+    if(orientation == 'pointy-top') var imgInfo = hg_imgInfo_pointytop;
+    else var imgInfo = hg_imgInfo_flattop;
+
+    var pp = hexy.getPixelPosition(imgInfo.width, imgInfo.height, offsetX, offsetY, orientation);
 
     $("<div>")
     .attr({
-      'id': "hg_stagehex_"+someId,
       'class': "animated fadeIn",
-      'style': "position:absolute;left:"+posX+"px;top:"+posY+"px;opacity:0;width:"+imgInfo.width+"px;height:"+imgInfo.height+"px;background-image: url("+imgInfo.name+");background-repeat: no-repeat;background-position: right top;"
+      'id': "hg_stagehex_"+someId,
+      'style': "position:absolute;left:"+pp.x+"px;top:"+pp.y+"px;width:"+imgInfo.width+"px;height:"+imgInfo.height+"px;background-image: url("+imgInfo.name+");background-repeat: no-repeat;background-position: right top;"
     })
     .appendTo('#hg_stage');
 
   }
 
 
-
   function hg_updateCodePreview() {
     var input = getInput();
     var code = 'var hg = new HexGrid('+input.hexnum+',"'+input.orientation+'").build();';
     $("#hg_code_build").html(code);
-
   }
+
+
+  function hg_updateCodeResult(hg) {
+    $("#hg_code_result").html('HexGrid: '+JSON.stringify(hg));
+  }
+
 
   function getInput() {
     var input = {};
     input.hexnum = parseInt($('#hg_sel_hexnum').val());
     input.orientation = $('#hg_sel_orientation').val().toLowerCase();
     input.layout =  $('#hg_sel_layout').val().toLowerCase();
-    input.direction =  $('#hg_sel_direction').val().toLowerCase();
-    input.startingpoint =  $('#hg_sel_startingpoint').val().toLowerCase();
     return input;
   }
 

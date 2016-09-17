@@ -10,6 +10,7 @@
   <script src="hexgrid-sa-bundle.js"></script>
   <script src="example.js"></script>
 
+
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha256-j+P6EZJVrbXgwSR5Mx+eCS6FvP9Wq27MBRC/ogVriY0=" crossorigin="anonymous" />
   <link rel="stylesheet" href="example.css">
@@ -17,6 +18,12 @@
 
 </head>
 <body>
+
+  <!-- preload Images -->
+  <div style="width:0px;height:0px;">
+    <div id="hg_preloadimg_pointytop" style="background-repeat: no-repeat;background-position: right top;"></div>
+    <div id="hg_preloadimg_flattop" style="background-repeat: no-repeat;background-position: right top;"></div>
+  </div>
 
   <div class="pure-g">
     <div class="pure-u-2-5" style="min-width:400px;">
@@ -45,26 +52,8 @@
               <div class="pure-control-group">
                 <label for="hg_sel_layout">Layout</label>
                 <select id="hg_sel_layout">
-                  <option selected="selected">Hexagonal</option>
-                  <option>Rectangle</option>
-                </select>
-              </div>
-
-              <div class="pure-control-group">
-                <label for="hg_sel_direction">Build-Direction</label>
-                <select id="hg_sel_direction">
-                  <option selected="selected">counter-clockwise</option>
-                  <option>clockwise</option>
-                </select>
-              </div>
-
-              <div class="pure-control-group">
-                <label for="hg_sel_startingpoint">Build-Direction starting-point</label>
-                <select id="hg_sel_startingpoint">
-                  <option selected="selected">SW (south-west)</option>
-                  <option>SE (south-east)</option>
-                  <option>NE (north-east)</option>
-                  <option>NW (north-west)</option>
+                  <option selected="selected">Hexagon</option>
+                  <!-- <option>Rectangle</option> -->
                 </select>
               </div>
 
@@ -75,8 +64,6 @@
             </fieldset>
           </form>
 
-
-
         </p>
       </div>
     </div>
@@ -84,9 +71,12 @@
       <div class="l-box" style="overflow-x:visible;">
         <p>
           <h4 class="content-subhead">Code used:</h4>
-          <code id="hg_code_build" class="code"></code>
+          <pre id="hg_code_build" class="code"></pre>
 
           <h4 class="content-subhead">Result:</h4>
+          <pre id="hg_code_result" class="code" style="overflow-y:scroll;height:64px"></pre>
+
+          <h5 class="content-subhead">visual representation:</h5>
           <div id="hg_stage" style="position:relative;width:512px;height:512px;border:1px solid rgb(66, 184, 221);overflow:hidden"></div>
         </p>
       </div>
