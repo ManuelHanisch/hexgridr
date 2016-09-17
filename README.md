@@ -15,9 +15,7 @@ var HexGrid = require('hexgridr');
 var hg = new HexGrid(hexCount, orientation, layout, origin);
 hg.buildPixelGrid(hexWidth, hexHeight, originPosX, originPosY);
 
-//you can also chain both functions:
-var hg = new HexGrid(hexCount, orientation, layout, origin).buildPixelGrid(hexWidth, hexHeight, originPosX, originPosY);
-
+//you can also chain both functions.
 //Example:
 var hg = new HexGrid(20, "pointy-top", "hexagon", new Hex(0,0,0)).buildPixelGrid(64, 64, 256, 256);
 
@@ -36,7 +34,7 @@ orientation {string}: **'pointy-top'** or **'flat-top'**  *--the two types of he
 layout {string}: **'hexagon'**  - more coming soon (rectangle next)  
 origin {Hex}: a Hex with cubic coordinates x,y,z. You can use **new Hex(x,y,z)** or  **HexGrid.createHex(x,y,z)**. The Position of all Hexes will be relative to this one.
 
-Parameters buildPixelGrid: 
+Parameters buildPixelGrid:
 
 hexWidth {int} : width of the Hex, usually in Pixels.  
 hexHeight {int}: height of the Hex, usually in Pixels.  
