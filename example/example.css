@@ -20,7 +20,7 @@
 body {
   min-width: 320px;
   color: #777;
-  line-height: 1.6;
+  /*line-height: 1.6;*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -154,6 +154,18 @@ code {
   word-wrap: break-word;
 }
 
+.code .c_var {
+  color: rgb(137, 89, 168);
+}
+.code .c_func {
+  color: rgb(66, 113, 174);
+}
+.code .c_num {
+  color: rgb(245, 135, 31)
+}
+.code .c_string {
+  color: rgb(113, 140, 0)
+}
 
 /* --------------------------
 * Button Styles

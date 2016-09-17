@@ -6,15 +6,17 @@
   <title>hexgridr Example</title>
 
   <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js" integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=" crossorigin="anonymous"></script>
-  <script src="hex-sa-bundle.js"></script>
-  <script src="hexgrid-sa-bundle.js"></script>
-  <script src="example.js"></script>
-
 
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha256-j+P6EZJVrbXgwSR5Mx+eCS6FvP9Wq27MBRC/ogVriY0=" crossorigin="anonymous" />
-  <link rel="stylesheet" href="example.css">
 
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+  <script src="hex-sa-bundle.js"></script>
+  <script src="hexgrid-sa-bundle.js"></script>
+  <script src="example.js"></script>
+  <link rel="stylesheet" href="example.css">
 
 </head>
 <body>
@@ -30,7 +32,7 @@
       <div class="l-box">
         <p>
 
-          <h4 class="content-subhead">Input for creating a Hexgrid:</h4>
+          <h4 class="content-subhead">Input for creating the Hexgrid:</h4>
 
           <form class="pure-form pure-form-aligned">
             <fieldset>
@@ -47,8 +49,6 @@
                 </select>
               </div>
 
-              <h4 class="content-subhead">Input for building the the Hexgrid:</h4>
-
               <div class="pure-control-group">
                 <label for="hg_sel_layout">Layout</label>
                 <select id="hg_sel_layout">
@@ -56,6 +56,29 @@
                   <!-- <option>Rectangle</option> -->
                 </select>
               </div>
+
+              <h4 class="content-subhead">Input for building the Pixelgrid:</h4>
+
+              <div class="pure-control-group">
+                <label for="hg_sel_hexW">Hex Width:</label>
+                <input id="hg_sel_hexW" type="text" style="width:64px" value="56">
+              </div>
+              <div class="pure-control-group">
+                <label for="hg_sel_hexH">Hex Height:</label>
+                <input id="hg_sel_hexH" type="text" style="width:64px" value="64">
+              </div>
+
+              <div class="pure-control-group">
+                <label for="hg_sel_hexX"> X Position of initial Hex:</label>
+                <input id="hg_sel_hexX" type="text" style="width:64px" value="223">
+              </div>
+              <div class="pure-control-group">
+                <label for="hg_sel_hexY">Y position of initial Hex:</label>
+                <input id="hg_sel_hexY" type="text" style="width:64px" value="224">
+              </div>
+
+
+
 
               <div class="pure-controls">
                 <input type="button" id="hg_sel_createBtn" class="button-secondary pure-button" value="Create and Build" />
@@ -71,7 +94,7 @@
       <div class="l-box" style="overflow-x:visible;">
         <p>
           <h4 class="content-subhead">Code used:</h4>
-          <pre id="hg_code_build" class="code"></pre>
+          <pre id="hg_code_build" class="code javacript"></pre>
 
           <h4 class="content-subhead">Result:</h4>
           <pre id="hg_code_result" class="code" style="overflow-y:scroll;height:64px"></pre>
