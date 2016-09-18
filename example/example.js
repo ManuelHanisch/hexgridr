@@ -1,18 +1,8 @@
 $(function() {
 
 
-  // $("#hg_sel_hexnum").change(function() { hg_updateCodePreview() });
-  // $("#hg_sel_orientation").change(function() { hg_updateCodePreview() });
-  // $("#hg_sel_layout").change(function() { hg_updateCodePreview() });
-  // $("#hg_sel_direction").change(function() { hg_updateCodePreview() });
-  // $("#hg_sel_startingpoint").change(function() { hg_updateCodePreview() });
-  //
-
   $("#hg_sel_orientation,#hg_sel_layout,#hg_sel_direction,#hg_sel_startingpoint").change(function() { hg_updateCodePreview() });
   $("#hg_sel_hexnum,#hg_sel_hexW,#hg_sel_hexH,#hg_sel_hexX,#hg_sel_hexY").on('input', function() { hg_updateCodePreview() });
-
-
-
   $("#hg_sel_createBtn").click(function() { hg_createHexGrid() });
 
   var hg_imgInfo_pointytop = {
@@ -29,17 +19,14 @@ $(function() {
   function hg_createHexGrid() {
 
     var input = getInput();
-    var hg = new HexGrid(input.hexnum,input.orientation, input.layout, HexGrid.createHex(0,0,0));
 
-
+    var hg = new HexGrid(input.orientation).buildGrid(input.hexnum, input.layout);
 
     if(input.orientation == 'pointy-top') var imgInfo = hg_imgInfo_pointytop;
     else var imgInfo = hg_imgInfo_flattop;
 
     hg.buildPixelGrid(input.hexW, input.hexH, input.ohexX, input.ohexY);
-
     hg_updateCodeResult(hg);
-
     hg_drawPixelGrid(hg.pixelGrid, imgInfo.name);
 
   }
@@ -51,7 +38,7 @@ $(function() {
 
     var i = -1;
     (function loop(){
-      if (++i >= pGrid.grid.length) return;
+      if (++i >= pGrid.hexes.length) return;
       setTimeout(function(){
         hg_drawHex(pGrid, i, imgName);
         loop();
@@ -65,7 +52,7 @@ $(function() {
     .attr({
       'class': "animated fadeIn",
       'id': "hg_stagehex_"+index,
-      'style': "position:absolute;left:"+pGrid.grid[index].x+"px;top:"+pGrid.grid[index].y+"px;width:"+pGrid.hexWidth+"px;height:"+pGrid.hexHeight+"px;background-size:100% 100%;background-image: url("+imgName+");background-repeat: no-repeat;background-position: right top;"
+      'style': "position:absolute;left:"+pGrid.hexes[index].x+"px;top:"+pGrid.hexes[index].y+"px;width:"+pGrid.hexWidth+"px;height:"+pGrid.hexHeight+"px;background-size:100% 100%;background-image: url("+imgName+");background-repeat: no-repeat;background-position: right top;"
     })
     .appendTo('#hg_stage');
 
@@ -75,20 +62,18 @@ $(function() {
   function hg_updateCodePreview() {
 
     var input = getInput();
-    var code = 'var hg = new HexGrid('+input.hexnum+', "'+input.orientation+'", "'+input.layout+'", HexGrid.createHex(0,0,0));<br />hg.buildPixelGrid('+input.hexW+', '+input.hexH+', '+input.ohexX+', '+input.ohexY+');';
-    code += '<br /><br />/*you can also chain both functions:*/<br /><br />';
-    code += 'var hg = new HexGrid('+input.hexnum+', "'+input.orientation+'", "'+input.layout+'", HexGrid.createHex(0,0,0)).buildPixelGrid('+input.hexW+', '+input.hexH+', '+input.ohexX+', '+input.ohexY+');';
+    var code = 'var hg = new HexGrid("'+input.orientation+'");<br />hg.buildGrid('+input.hexnum+',"'+input.layout+'");<br />hg.buildPixelGrid('+input.hexW+', '+input.hexH+', '+input.ohexX+', '+input.ohexY+');';
+    code += '<br /><br />/*you can also chain all functions:*/<br /><br />';
+    code += 'var hg = new HexGrid("'+input.orientation+'").buildGrid('+input.hexnum+',"'+input.layout+'").buildPixelGrid('+input.hexW+', '+input.hexH+', '+input.ohexX+', '+input.ohexY+');';
 
     $("#hg_code_build").html(code);
     hljs.highlightBlock($('#hg_code_build')[0]);
-
-
 
   }
 
 
   function hg_updateCodeResult(hg) {
-    $("#hg_code_result").html('HexGrid: '+JSON.stringify(hg)+'<br />PixelGrid: '+JSON.stringify(hg.pixelGrid));
+    $("#hg_code_result").html('HexGrid: '+JSON.stringify(hg)+'<br />HexGrid.grid: '+JSON.stringify(hg.grid)+'<br />HexGrid.pixelGrid: '+JSON.stringify(hg.pixelGrid));
     hljs.highlightBlock($('#hg_code_result')[0]);
   }
 
