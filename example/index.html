@@ -11,10 +11,11 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha256-j+P6EZJVrbXgwSR5Mx+eCS6FvP9Wq27MBRC/ogVriY0=" crossorigin="anonymous" />
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
 
   <!-- <script src="hex-sa-bundle.js"></script> -->
+  <script src="hexgridtype-sa-bundle.js"></script>
   <script src="hexgrid-sa-bundle.js"></script>
   <script src="example.js"></script>
   <link rel="stylesheet" href="example.css">
@@ -29,11 +30,11 @@
   </div>
 
   <div class="pure-g">
-    <div class="pure-u-2-5" style="min-width:400px;">
+    <div class="pure-u-8-24" style="min-width:400px;">
       <div class="l-box">
         <p>
 
-          <h4 class="content-subhead">Input for creating the Hexgrid:</h4>
+          <h4 class="content-subhead">Input for creating a HexGridType:</h4>
 
           <form class="pure-form pure-form-aligned">
             <fieldset>
@@ -46,7 +47,15 @@
                 </select>
               </div>
 
-              <h4 class="content-subhead">Input for building the Grid:</h4>
+              <div class="pure-control-group">
+                <label for="hg_sel_offsettype">Row/Column Offset</label>
+                <select id="hg_sel_offsettype">
+                  <option selected="selected">odd</option>
+                  <option>even</option>
+                </select>
+              </div>
+
+              <h4 class="content-subhead">Input for creating the Hexgrid:</h4>
 
               <div class="pure-control-group">
                 <label for="hg_sel_hexnum">Number of Hexes:</label>
@@ -61,7 +70,16 @@
                 </select>
               </div>
 
-              <h4 class="content-subhead">Input for building the Pixelgrid:</h4>
+              <div class="pure-control-group">
+                <label for="hg_sel_originX">Initial Hex X Coordinate:</label>
+                <input id="hg_sel_originX" type="text" style="width:48px" value="0">
+              </div>
+              <div class="pure-control-group">
+                <label for="hg_sel_originY">Initial Hex Y Coordinate:</label>
+                <input id="hg_sel_originY" type="text" style="width:48px" value="0">
+              </div>
+
+              <h4 class="content-subhead">Input for creating a Pixelgrid:</h4>
 
               <div class="pure-control-group">
                 <label for="hg_sel_hexW">Hex Width:</label>
@@ -92,7 +110,7 @@
         </p>
       </div>
     </div>
-    <div class="pure-u-3-5" style="min-width:600px;">
+    <div class="pure-u-14-24" style="min-width:600px;">
       <div class="l-box" style="overflow-x:visible;">
         <p>
           <h4 class="content-subhead">Code used:</h4>
@@ -102,6 +120,7 @@
           <pre id="hg_code_result" class="code" style="overflow-y:scroll;height:96px"></pre>
 
           <h5 class="content-subhead">visual representation:</h5>
+          <pre id="hg_pcode_build" class="code javacript"></pre>
           <div id="hg_stage" style="position:relative;height:512px;border:1px solid rgb(66, 184, 221);overflow:hidden"></div>
         </p>
       </div>

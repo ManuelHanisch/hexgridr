@@ -5,6 +5,8 @@
 dist/bundle.js
 example/hex-sa-bundle.js
 example/hexgrid-sa-bundle.js
+example/hexgridtype-sa-bundle.js
+
 
 # Dependency directory
 node_modules
