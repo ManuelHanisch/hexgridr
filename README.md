@@ -36,7 +36,7 @@ originY {int}: Y Coordinate of origin-hex. Each HexSet is build around the posit
 var pixelSet = hexSet.buildPixelSet(hexWidth, hexHeight, offsetX, offsetY);
 
 //Example:
-var pixelSet = hexSet.buildPixelGrid(64, 64, 256, 256);
+var pixelSet = hexSet.buildPixelSet(64, 64, 256, 256);
 ```
 Parameters:  
 hexWidth {int} : **0 to N** -- pixel-width of a Hex.  
