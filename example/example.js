@@ -15,35 +15,36 @@ $(function() {
   function hg_createHexGrid() {
 
     const input = hg_getInput();
-
-    const hgType = new HexGridType(input.orientation, input.offsettype);
-    const hg = new HexGrid(hgType, input.hexnum, input.layout, input.originX, input.originY);
+    
+    const hg = new HexGrid(input.orientation, input.offsettype);
+    const hs = hg.createHexSet(input.hexnum, input.layout, input.originX, input.originY).includeCoord2D();
+    const ps = hs.createPixelSet(input.hexW, input.hexH, input.ohexX, input.ohexY);
 
     if(input.orientation == 'pointy-top') var imgInfo = hg_imgInfo_pointytop;
     else var imgInfo = hg_imgInfo_flattop;
 
-    const pg = hg.createPixelGrid(input.hexW, input.hexH, input.ohexX, input.ohexY);
+    hg_updateCodeResult(hg,hs,ps);
 
-    hg_updateCodeResult(hgType,hg,pg);
-    hg_drawPixelGrid(pg, imgInfo.name);
+    hg_drawPixelGrid(ps, imgInfo.name);
 
   }
 
 
-  function hg_drawPixelGrid(pGrid, imgName) {
+  function hg_drawPixelGrid(pg, imgName) {
 
     $('#hg_stage').empty();
 
+    //draw rectangular Coordinate system
+    hg_drawRectCCS(128, 128, pg.offsetX, pg.offsetY, pg.hexes[0].pPos.x, pg.hexes[0].pPos.y);
+
+
     var i = -1;
     (function loop(){
-      if (++i >= pGrid.hexes.length) {
-
-        //draw rectangular Coordinate system
-        hg_drawRectCCS(128, 128, pGrid.offsetX, pGrid.offsetY, pGrid.hexes[0].pPos.x, pGrid.hexes[0].pPos.y);
+      if (++i >= pg.hexes.length) {
         return;
       }
       else setTimeout(function(){
-        hg_drawHex(pGrid, i, imgName);
+        hg_drawHex(pg, i, imgName);
         loop();
       }, 100);
     })();
@@ -51,20 +52,20 @@ $(function() {
   }
 
 
-  function hg_drawHex(pGrid, index, imgName) {
+  function hg_drawHex(pg, index, imgName) {
 
-    const ph = pGrid.hexes[index];
+    const ph = pg.hexes[index];
     const pp = ph.pPos;
-    const x = pp.x - (pGrid.hexWidth/2);
-    const y = pp.y - (pGrid.hexHeight/2);
+    const x = pp.x - (pg.hexWidth/2);
+    const y = pp.y - (pg.hexHeight/2);
 
     $("<div>")
     .attr({
       'class': "animated fadeIn",
       'id': "hg_stagehex_"+index,
-      'style': "display:table;position:absolute;left:"+x+"px;top:"+y+"px;width:"+pGrid.hexWidth+"px;height:"+pGrid.hexHeight+"px;background-size:100% 100%;background-image: url("+imgName+");background-repeat: no-repeat;background-position: right top;"
+      'style': "z-index:0;display:table;position:absolute;left:"+x+"px;top:"+y+"px;width:"+pg.hexWidth+"px;height:"+pg.hexHeight+"px;background-size:100% 100%;background-image: url("+imgName+");background-repeat: no-repeat;background-position: right top;"
     })
-    .append('<div style="display:table-cell;vertical-align:middle;text-align:center;color:#FF9999">'+ph.hex.hexCoords.coord2D.x+'|'+ph.hex.hexCoords.coord2D.y+'</div>')
+    .append('<div style="display:table-cell;vertical-align:middle;text-align:center;color:#FF9999;word-break:break-all;">'+ph.fromHexSetHex.coord2D.x+'|'+ph.fromHexSetHex.coord2D.y+'</div>')
     .appendTo('#hg_stage');
 
   }
@@ -74,7 +75,7 @@ $(function() {
 
     $("<div>")
     .attr({
-      'style': "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;border-left:2px solid green;border-top:2px solid green"
+      'style': "z-index:10;position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;border-left:2px solid green;border-top:2px solid green"
     })
     .appendTo('#hg_stage');
 
@@ -85,8 +86,8 @@ $(function() {
 
     const input = hg_getInput();
 
-    const code = 'const hexGridType = new HexGridType("'+input.orientation+'", "'+input.offsettype+'");<br />var hexGrid = new HexGrid(hexGridType, '+input.hexnum+', "'+input.layout+'", '+input.originX+', '+input.originY+');';
-    const pcode = 'var pixelGrid = hexGrid.buildPixelGrid('+input.hexW+', '+input.hexH+', '+input.ohexX+', '+input.ohexY+');';
+    const code = 'const hexGrid = new HexGrid("'+input.orientation+'", "'+input.offsettype+'");<br />var hexSet = hexGrid.createHexSet('+input.hexnum+', "'+input.layout+'", '+input.originX+', '+input.originY+');';
+    const pcode = 'var pixelSet = hexSet.createPixelSet('+input.hexW+', '+input.hexH+', '+input.ohexX+', '+input.ohexY+');';
 
     $("#hg_code_build").html(code);
     $("#hg_pcode_build").html(pcode);
@@ -97,8 +98,11 @@ $(function() {
   }
 
 
-  function hg_updateCodeResult(hgType,hg,pg) {
-    $("#hg_code_result").html('hexGridType: '+JSON.stringify(hgType)+';<br />hexGrid: '+JSON.stringify(hg)+';<br /><br />pixelGrid: '+JSON.stringify(pg)) + ';';
+  function hg_updateCodeResult(hg,hs,ps) {
+
+    hs.fromHexGrid = '[HexGrid reference]';
+    ps.fromHexSet = '[HexSet reference]';
+    $("#hg_code_result").html('hexGrid: '+JSON.stringify(hg)+';<br />hexSet: '+JSON.stringify(hs)+';<br /><br />pixelSet: '+JSON.stringify(ps)) + ';';
     hljs.highlightBlock($('#hg_code_result')[0]);
   }
 

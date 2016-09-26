@@ -1,6 +1,6 @@
 {
   "name": "hexgridr",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A library for creating and working with hexagonal grids. Supports pointy-top and flat-top orientations.",
   "main": "lib/HexGrid.js",
   "repository": {
@@ -8,11 +8,10 @@
     "url": "https://github.com/ManuelHanisch/hexgridr"
   },
   "scripts": {
-    "makeSA:HexGridType": "browserify lib/HexGridType.js --standalone HexGridType > example/hexgridtype-sa-bundle.js",
     "makeSA:HexGrid": "browserify lib/HexGrid.js --standalone HexGrid > example/hexgrid-sa-bundle.js",
     "makeSA:Hex": "browserify lib/Hex.js --standalone Hex > example/hex-sa-bundle.js",
 
-    "buildExample": "npm run makeSA:HexGrid | npm run makeSA:HexGridType",
+    "buildExample": "npm run makeSA:HexGrid",
     "build": "browserify lib/HexGrid.js  > dist/bundle.js"
   },
   "keywords": [
